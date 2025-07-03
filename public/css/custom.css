@@ -1,0 +1,25 @@
+body.kasir {
+    background: linear-gradient(to right, #e3fcec, #ffffff);
+}
+
+body.admin {
+    background: linear-gradient(to right, #e3e3e3, #ffffff);
+}
+
+.navbar.kasir {
+    background-color: #198754 !important; /* hijau */
+}
+
+.navbar.admin {
+    background-color: #0d6efd !important; /* biru */
+}
+
+.card-header.bg-kasir {
+    background-color: #20c997;
+    color: white;
+}
+
+.card-header.bg-admin {
+    background-color: #0d6efd;
+    color: white;
+}
