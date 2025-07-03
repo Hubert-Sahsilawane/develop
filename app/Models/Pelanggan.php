@@ -12,10 +12,10 @@ class Pelanggan extends Model
 
     protected $table = 'pelanggan';
     protected $primaryKey = 'PelangganID';
-    public $incrementing = true;    
-    protected $keyType = 'int';           
- 
-    protected $fillable = ['namaPelanggan', 'alamat', 'nomor_telepon', 'jenis_pelanggan'];
+    public $incrementing = true;
+    protected $keyType = 'int';
+
+    protected $fillable = ['namaPelanggan', 'alamat', 'nomor_telepon', 'jenis_pelanggan', 'email'];
 
     public function penjualan(): HasMany
     {

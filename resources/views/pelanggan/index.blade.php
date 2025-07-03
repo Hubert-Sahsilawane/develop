@@ -20,6 +20,7 @@
         <thead>
             <tr>
                 <th>Nama</th>
+                <th>Email</th>
                 <th>Alamat</th>
                 <th>Nomor Telepon</th>
                 <th>Jenis Pelanggan</th>
@@ -30,6 +31,7 @@
             @forelse ($pelanggan as $p)
                 <tr>
                     <td>{{ $p->namaPelanggan }}</td>
+                    <td>{{ $p->email }}</td>
                     <td>{{ $p->alamat }}</td>
                     <td>{{ $p->nomor_telepon }}</td>
                     <td>
