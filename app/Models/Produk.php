@@ -11,10 +11,16 @@ class Produk extends Model
 
     protected $table = 'produk';
     protected $primaryKey = 'produkID';
-    protected $fillable = ['namaProduk', 'harga', 'stok'];
+    protected $fillable = ['namaProduk', 'harga', 'stok', 'kategori_id'];
 
-    public function detailPenjualan(){
+    public function detailPenjualan()
+    {
         return $this->hasMany(DetailPenjualan::class, 'produkID', 'ProdukID');
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
     /**
@@ -28,13 +34,24 @@ class Produk extends Model
         $existingProduct = self::where('namaProduk', $data['namaProduk'])->first();
 
         if ($existingProduct) {
-            // Product exists, update the stock
+            // Produk sudah ada, tambahkan stok
             $existingProduct->stok += $data['stok'];
+
+            // Update kategori_id kalau dikirim
+            if (isset($data['kategori_id'])) {
+                $existingProduct->kategori_id = $data['kategori_id'];
+            }
+
+            // Update harga kalau dikirim
+            if (isset($data['harga'])) {
+                $existingProduct->harga = $data['harga'];
+            }
+
             $existingProduct->save();
             return $existingProduct;
         }
 
-        // Product doesn't exist, create new one
+        // Produk belum ada, buat baru
         return self::create($data);
     }
 }

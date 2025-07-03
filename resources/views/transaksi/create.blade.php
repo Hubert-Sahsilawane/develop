@@ -49,7 +49,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <input type="number" name="jumlahProduk[]" class="form-control jumlahProduk" placeholder="Jumlah" required>
+                    <input type="number" name="jumlahProduk[]" class="form-control jumlahProduk" placeholder="Jumlah" min="1" required>
                 </div>
                 <div class="col-md-2">
                     <input type="text" class="form-control subTotal" placeholder="Subtotal" readonly>

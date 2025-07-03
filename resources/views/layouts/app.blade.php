@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Kasir App</title>
+
+    <!-- CSS utama -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    @yield('styles') {{-- Optional: Tambahan CSS dari halaman --}}
+    
     <style>
         body {
             display: flex;
@@ -87,10 +90,9 @@
 <body class="{{ Auth::user()->role ?? 'guest' }}">
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar d-flex flex-column">
-        <!-- Tombol titik tiga -->
         <button class="toggle-btn align-self-end" onclick="toggleSidebar()">☰</button>
 
-        <!-- Logo Online -->
+        <!-- Logo -->
         <div class="mb-3 text-center">
             <img src="https://img.icons8.com/ios-filled/50/shop.png" alt="Logo" class="logo">
         </div>
@@ -153,6 +155,8 @@
         @yield('content')
     </div>
 
+    <!-- Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
@@ -161,5 +165,7 @@
             content.classList.toggle('collapsed');
         }
     </script>
+
+    @yield('scripts') {{-- penting agar script Select2 dan lainnya dari halaman jalan --}}
 </body>
 </html>
