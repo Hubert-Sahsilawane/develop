@@ -19,7 +19,9 @@
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
+                <th>ID</th> <!-- Kolom ID ditambahkan -->
                 <th>Nama Produk</th>
+                <th>Kategori</th>
                 <th>Harga</th>
                 <th>Stok</th>
                 <th>Aksi</th>
@@ -28,7 +30,9 @@
         <tbody>
             @forelse ($produk as $p)
                 <tr>
+                    <td>{{ $p->produkID }}</td> <!-- Menampilkan ID produk -->
                     <td>{{ $p->namaProduk }}</td>
+                    <td>{{ $p->kategori->nama_kategori ?? '-' }}</td>
                     <td>Rp {{ number_format($p->harga, 2, ',', '.') }}</td>
                     <td>{{ $p->stok }}</td>
                     <td>
@@ -45,7 +49,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Belum ada produk.</td>
+                    <td colspan="6" class="text-center">Belum ada produk.</td> <!-- Ubah colspan dari 5 ke 6 -->
                 </tr>
             @endforelse
         </tbody>
