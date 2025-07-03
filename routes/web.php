@@ -50,7 +50,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 |--------------------------------------------------------------------------
 | Kasir boleh CRUD, jadi tidak perlu pisahkan index saja
 */
-Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
+Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::resource('produk', ProdukController::class);
 });
 
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
 | ADMIN SAJA (CRUD pelanggan dan users)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,owner'])->group(function () {
     Route::resource('pelanggan', PelangganController::class)->except(['index']);
     Route::resource('users', UserController::class);
 });
@@ -69,7 +69,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 | ADMIN & KASIR (akses index pelanggan, transaksi, laporan)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
+Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     // Pelanggan: hanya lihat (index)
     Route::get('/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index');
 

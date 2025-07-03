@@ -8,7 +8,7 @@
     <a href="{{ route('dashboard') }}" class="btn btn-secondary mb-3">← Kembali ke Dashboard</a>
 
     {{-- Tombol tambah pelanggan (khusus admin) --}}
-    @if(Auth::user()->role === 'admin')
+    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'owner')
         <a href="{{ route('pelanggan.create') }}" class="btn btn-primary mb-3 ms-2">Tambah Pelanggan</a>
     @endif
 
@@ -44,7 +44,7 @@
                         @endif
                     </td>
                     <td>
-                        @if(Auth::user()->role === 'admin')
+                        @if(Auth::user()->role === 'admin' || Auth::user()->role ==='owner')
                             <a href="{{ route('pelanggan.edit', $p->PelangganID) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('pelanggan.destroy', $p->PelangganID) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')

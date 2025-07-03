@@ -80,7 +80,7 @@ class ProdukController extends Controller
 
     private function authorizeAdminOrKasir()
     {
-        if (!in_array(Auth::user()->role, ['admin', 'kasir'])) {
+        if (!in_array(Auth::user()->role, ['admin', 'kasir','owner'])) {
             abort(403, 'Akses ditolak. Hanya admin atau kasir yang diizinkan.');
         }
     }
