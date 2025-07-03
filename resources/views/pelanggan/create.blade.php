@@ -47,7 +47,7 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Simpan</button>
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pelanggan.index') }}'">Kembali</button>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('pelanggan.index') }}'">Batal</button>
         </form>
     </div>
 

@@ -9,17 +9,14 @@
             <label>Nama Produk</label>
             <input type="text" name="namaProduk" class="form-control" required>
         </div>
-
         <div class="mb-3">
             <label>Harga</label>
             <input type="text" name="harga" class="form-control" required>
         </div>
-
         <div class="mb-3">
             <label>Stok</label>
             <input type="number" name="stok" class="form-control" required>
         </div>
-
         <div class="mb-3">
     <label>Kategori</label>
     <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">

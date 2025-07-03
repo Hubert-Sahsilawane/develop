@@ -7,8 +7,9 @@
     {{-- Tombol kembali ke dashboard --}}
     <a href="{{ route('dashboard') }}" class="btn btn-secondary mb-3">← Kembali ke Dashboard</a>
 
-    {{-- Tombol tambah produk (admin & kasir) --}}
-    @if(in_array(Auth::user()->role, ['admin', 'kasir']))
+    {{-- Tombol tambah produk (admin & kasir, owner) --}}
+    @if(in_array(Auth::user()->role, ['admin', 'kasir', 'owner']))
+        {{-- Hanya tampilkan tombol jika user adalah admin, kasir, atau owner --}}
         <a href="{{ route('produk.create') }}" class="btn btn-primary mb-3 ms-2">Tambah Produk</a>
     @endif
 
@@ -36,7 +37,7 @@
                     <td>Rp {{ number_format($p->harga, 2, ',', '.') }}</td>
                     <td>{{ $p->stok }}</td>
                     <td>
-                        @if(in_array(Auth::user()->role, ['admin', 'kasir']))
+                        @if(in_array(Auth::user()->role, ['admin', 'kasir', 'owner']))
                             <a href="{{ route('produk.edit', $p->produkID) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('produk.destroy', $p->produkID) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')

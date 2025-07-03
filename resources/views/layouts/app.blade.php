@@ -97,7 +97,7 @@
             <img src="https://img.icons8.com/ios-filled/50/shop.png" alt="Logo" class="logo">
         </div>
 
-        <h5 class="text-center mb-4 text-label">KasirApp</h5>
+        <h5 class="text-center mb-4 text-label">JO STORE</h5>
 
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
@@ -106,12 +106,15 @@
                     <span class="text-label">Dashboard</span>
                 </a>
             </li>
+            @if (Auth::user()->role === 'owner')
+
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                     <img src="https://img.icons8.com/ios-filled/20/user.png" alt="Pengguna" class="icon">
                     <span class="text-label">Pengguna</span>
                 </a>
             </li>
+@endif
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}" href="{{ route('pelanggan.index') }}">
                     <img src="https://img.icons8.com/ios-filled/20/conference-call.png" alt="Pelanggan" class="icon">
