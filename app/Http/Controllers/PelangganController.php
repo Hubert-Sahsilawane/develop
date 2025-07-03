@@ -37,6 +37,7 @@ class PelangganController extends Controller
             'regex:/^\+62\-[0-9]{3}\-[0-9]{4}\-[0-9]{3,4}$/',
             'unique:pelanggan,nomor_telepon'
         ],
+        'email' => 'required|email',
         'jenis_pelanggan' => 'required|in:biasa,member,vip',
     ], [
         'nomor_telepon.unique' => 'Maaf, nomor ini sudah ada. Tolong ganti nomor lain.',
@@ -74,6 +75,7 @@ class PelangganController extends Controller
             'regex:/^\+62\-[0-9]{3}\-[0-9]{4}\-[0-9]{3,4}$/',
             Rule::unique('pelanggan', 'nomor_telepon')->ignore($id, 'PelangganID')
         ],
+        'email' => 'required|email',
         'jenis_pelanggan' => 'required|in:biasa,member,vip',
     ], [
         'nomor_telepon.unique' => 'Maaf, nomor ini sudah ada. Tolong ganti nomor lain.',
