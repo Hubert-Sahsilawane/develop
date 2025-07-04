@@ -33,6 +33,7 @@
 </div>
 
         <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ route('produk.index') }}'">Batal</button>
     </form>
 </div>
 @endsection
