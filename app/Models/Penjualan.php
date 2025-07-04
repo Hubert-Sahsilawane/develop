@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Models; 
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; 
-use Illuminate\Database\Eloquent\Model; 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Penjualan extends Model {
-    use HasFactory; 
+    use HasFactory;
 
-    protected $table = 'penjualan'; 
-    protected $primaryKey = 'PenjualanID'; 
-    protected $fillable = ['tanggalPenjualan', 'totalHarga', 'pelangganID']; 
+    protected $table = 'penjualan';
+    protected $primaryKey = 'PenjualanID';
+    protected $fillable = ['tanggalPenjualan', 'totalHarga', 'pelangganID', 'bayar', 'kembalian'];
 
-    public function pelanggan() { 
-        return $this->belongsTo(Pelanggan::class, 'pelangganID', 'PelangganID'); 
-    } 
+    public function pelanggan() {
+        return $this->belongsTo(Pelanggan::class, 'pelangganID', 'PelangganID');
+    }
 
-    public function detailPenjualan() { 
-        return $this->hasMany(DetailPenjualan::class, 'penjualanID', 'PenjualanID'); 
+    public function detailPenjualan() {
+        return $this->hasMany(DetailPenjualan::class, 'penjualanID', 'PenjualanID');
     }
 }

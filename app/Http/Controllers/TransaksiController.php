@@ -58,6 +58,8 @@ class TransaksiController extends Controller
                 'tanggalPenjualan' => now(),
                 'totalHarga' => 0,
                 'pelangganID' => $request->pelangganID,
+                'bayar' => 0,
+                'kembalian' => 0,
             ]);
 
             // Simpan detail penjualan dan kurangi stok
@@ -89,14 +91,12 @@ class TransaksiController extends Controller
 
             $kembalian = $request->bayar - $totalHargaSetelahDiskon;
 
-            $penjualan->update(['totalHarga' => $totalHargaSetelahDiskon]);
+            $penjualan->update([
+                'totalHarga' => $totalHargaSetelahDiskon,
+                'bayar' => $request->bayar,
+                'kembalian' => $kembalian,
+            ]);
 
-            session()->flash('totalHargaSebelumDiskon', $totalHargaSebelumDiskon);
-            session()->flash('diskon', $diskonRate);
-            session()->flash('totalHarga', $totalHargaSetelahDiskon);
-            session()->flash('pelanggan', $pelanggan);
-            session()->flash('bayar', $request->bayar);
-            session()->flash('kembalian', $kembalian);
 
             DB::commit();
 
@@ -120,12 +120,13 @@ class TransaksiController extends Controller
             return $detail->subTotal;
         });
 
-        $diskonRate = $pelanggan->getDiskon(); 
+        $diskonRate = $pelanggan->getDiskon();
         $diskon = $totalHargaSebelumDiskon * $diskonRate;
         $totalHarga = $totalHargaSebelumDiskon - $diskon;
 
-        $bayar = session('bayar');
-        $kembalian = session('kembalian');
+        $bayar = $penjualan->bayar;
+        $kembalian = $penjualan->kembalian;
+
 
         return view('transaksi.struk', compact(
             'penjualan',
