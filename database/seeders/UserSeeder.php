@@ -9,23 +9,30 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Hindari duplikat: akan membuat user jika belum ada
+        User::firstOrCreate(
+            ['email' => 'owner@gmail.com'],
+            [
+                'name' => 'Joshua',
+                'password' => bcrypt('owner123'),
+                'role' => 'owner',
+            ]
+        );
+        
         User::firstOrCreate(
             ['email' => 'admin@gmail.com'],
             [
-                'name' => 'Admin',
-                'password' => bcrypt('admin123'), // Atau password lain
-                'role' => 'admin',
+                'name' => 'Hasby',
+                'password' => bcrypt('admin123'), 
+                'role' => 'Admin',
             ]
         );
-
-        // Tambahkan user lain jika perlu, contoh kasir:
+        
         User::firstOrCreate(
             ['email' => 'kasir@gmail.com'],
             [
-                'name' => 'Kasir',
+                'name' => 'Naufal',
                 'password' => bcrypt('kasir123'),
-                'role' => 'kasir',
+                'role' => 'Kasir',
             ]
         );
     }
