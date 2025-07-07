@@ -5,6 +5,22 @@ use App\Http\Controllers\Api\PelangganApiController;
 use App\Http\Controllers\Api\ProdukApiController;
 use App\Http\Controllers\Api\TransaksiApiController;
 use App\Http\Controllers\Api\LaporanApiController;
+use App\Http\Controllers\AuthController;
+use Illuminate\Http\Request;
+
+//Login API
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->get('/home', function (Request $request) {
+    return response()->json(['message' => 'Selamat datang di halaman home', 'user' => $request->user()]);
+});
+
+//logout API
+Route::post('/logout', function (Request $request) {
+    $request->user()->currentAccessToken()->delete();
+    return response()->json(['message' => 'Logout berhasil']);
+})->middleware('auth:sanctum');
+
+
 
 // PELANGGAN (CRUD via API)
 Route::get('/pelanggan', [PelangganApiController::class, 'index']);

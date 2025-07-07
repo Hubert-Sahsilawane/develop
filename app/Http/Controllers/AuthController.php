@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -16,13 +17,18 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->route('home')->with('alert', 'Login Berhasil');
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Login gagal'], 401);
         }
 
-        return back()->withErrors(['email' => 'Login gagal'])->onlyInput('email');
+        $user = Auth::user();
+        $token = $user->createToken('token-login')->plainTextToken;
+
+        return response()->json([
+            'message' => 'Login berhasil',
+            'token' => $token,
+            'user' => $user,
+        ]);
     }
 
     public function logout(Request $request)
