@@ -53,9 +53,10 @@ class TransaksiController extends Controller
                 }
             }
 
+            $tanggal = now(); // Gunakan waktu saat ini untuk tanggal penjualan
             // Simpan transaksi penjualan
             $penjualan = Penjualan::create([
-                'tanggalPenjualan' => now(),
+                'tanggalPenjualan' => $tanggal,
                 'totalHarga' => 0,
                 'pelangganID' => $request->pelangganID,
                 'bayar' => 0,
