@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Kasir App</title>
@@ -12,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     @yield('styles') {{-- Optional: Tambahan CSS dari halaman --}}
-    
+
     <style>
         body {
             display: flex;
@@ -71,7 +72,7 @@
             margin-left: 250px;
             padding: 20px;
             flex-grow: 1;
-            transition: margin-left 0.3s;
+            transition: margin-left 0.3s ease-in-out;
         }
 
         .content.collapsed {
@@ -87,9 +88,10 @@
         }
     </style>
 </head>
+
 <body class="{{ Auth::user()->role ?? 'guest' }}">
     <!-- Sidebar -->
-    <div id="sidebar" class="sidebar d-flex flex-column">
+    <div id="sidebar" class="sidebar collapsed d-flex flex-column">
         <button class="toggle-btn align-self-end" onclick="toggleSidebar()">☰</button>
 
         <!-- Logo -->
@@ -101,40 +103,45 @@
 
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                    href="{{ route('dashboard') }}">
                     <img src="https://img.icons8.com/ios-filled/20/dashboard.png" alt="Dashboard" class="icon">
                     <span class="text-label">Dashboard</span>
                 </a>
             </li>
             @if (Auth::user()->role === 'owner')
-
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                        href="{{ route('users.index') }}">
+                        <img src="https://img.icons8.com/ios-filled/20/user.png" alt="Pengguna" class="icon">
+                        <span class="text-label">Pengguna</span>
+                    </a>
+                </li>
+            @endif
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                    <img src="https://img.icons8.com/ios-filled/20/user.png" alt="Pengguna" class="icon">
-                    <span class="text-label">Pengguna</span>
-                </a>
-            </li>
-@endif
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}" href="{{ route('pelanggan.index') }}">
+                <a class="nav-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}"
+                    href="{{ route('pelanggan.index') }}">
                     <img src="https://img.icons8.com/ios-filled/20/conference-call.png" alt="Pelanggan" class="icon">
                     <span class="text-label">Pelanggan</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('produk.*') ? 'active' : '' }}" href="{{ route('produk.index') }}">
+                <a class="nav-link {{ request()->routeIs('produk.*') ? 'active' : '' }}"
+                    href="{{ route('produk.index') }}">
                     <img src="https://img.icons8.com/ios-filled/20/box.png" alt="Produk" class="icon">
                     <span class="text-label">Produk</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('transaksi.*') ? 'active' : '' }}" href="{{ route('transaksi.create') }}">
+                <a class="nav-link {{ request()->routeIs('transaksi.*') ? 'active' : '' }}"
+                    href="{{ route('transaksi.create') }}">
                     <img src="https://img.icons8.com/ios-filled/20/cash-register.png" alt="Transaksi" class="icon">
                     <span class="text-label">Transaksi</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}" href="{{ route('laporan.index') }}">
+                <a class="nav-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}"
+                    href="{{ route('laporan.index') }}">
                     <img src="https://img.icons8.com/ios-filled/20/report-card.png" alt="Laporan" class="icon">
                     <span class="text-label">Laporan</span>
                 </a>
@@ -151,7 +158,7 @@
     </div>
 
     <!-- Main Content -->
-    <div id="main-content" class="content">
+    <div id="main-content" class="content collapsed">
         @yield('content')
     </div>
 
@@ -161,11 +168,26 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const content = document.getElementById('main-content');
+
             sidebar.classList.toggle('collapsed');
             content.classList.toggle('collapsed');
+
+            // Simpan ke localStorage
+            localStorage.setItem('sidebar_collapsed', sidebar.classList.contains('collapsed'));
         }
+
+        // Saat pertama load, cek localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const collapsed = localStorage.getItem('sidebar_collapsed') === 'true';
+            if (collapsed) {
+                document.getElementById('sidebar').classList.add('collapsed');
+                document.getElementById('main-content').classList.add('collapsed');
+            }
+        });
     </script>
+
 
     @yield('scripts') {{-- penting agar script Select2 dan lainnya dari halaman jalan --}}
 </body>
+
 </html>
