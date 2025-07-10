@@ -33,7 +33,6 @@
                     <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
-
             <button type="submit" class="btn btn-primary">Update</button>
             <button type="button" class="btn btn-secondary"
                 onclick="window.location.href='{{ route('produk.index') }}'">Batal</button>

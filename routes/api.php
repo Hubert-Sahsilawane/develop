@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\ProdukApiController;
 use App\Http\Controllers\Api\TransaksiApiController;
 use App\Http\Controllers\Api\LaporanApiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\KategoriApiController;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 //Login API
@@ -21,6 +23,11 @@ Route::post('/logout', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+Route::get('/kategori', [KategoriApiController::class, 'index']);
+Route::post('/kategori', [KategoriApiController::class, 'store']);
+Route::get('/kategori/{id}', [KategoriApiController::class, 'show']);
+Route::put('/kategori/{id}', [KategoriApiController::class, 'update']);
+Route::delete('/kategori/{id}', [KategoriApiController::class, 'destroy']);
 
 // PELANGGAN (CRUD via API)
 Route::get('/pelanggan', [PelangganApiController::class, 'index']);
@@ -44,3 +51,5 @@ Route::get('/transaksi/{id}/struk', [TransaksiApiController::class, 'printStruk'
 // LAPORAN PENJUALAN
 Route::get('/laporan', [LaporanApiController::class, 'index']);
 Route::delete('/penjualan/{id}', [LaporanApiController::class, 'destroy']);
+
+

@@ -8,6 +8,7 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\KategoriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::middleware(['auth', 'role:admin,kasir,owner'])->group(function () {
     Route::resource('produk', ProdukController::class);
 });
+
+
 
 /*
 |--------------------------------------------------------------------------
